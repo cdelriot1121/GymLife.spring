@@ -104,55 +104,18 @@
       <p class="section__description">
         Descubra una amplia gama de clases emocionantes en nuestro gimnasio, diseñadas para satisfacer todos los niveles de condición física e intereses. Ya sea que sea un atleta experimentado o recién esté comenzando su camino hacia el fitness, nuestras clases ofrecen algo para todos.
       </p>
-      <div class="class__grid">
 
-        <div class="class__card">
+      <div class="class__grid" th:each="ClaseModel : @{clases}">
+        <div class="class__card" th:each="clase : ${clases}">
           <img src="images/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="images/class-1.jpg" alt="class" />
+          <img th:src="@{'/images/' + ${clase.imagen}}" alt="class" />
           <div class="class__content">
-            <h4>Strength Training</h4>
-            <p>Resistance Training</p>
+            <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>
+            <p th:text="${clase.subClases}">Sub Clases</p>
           </div>
         </div>
-
-        <div class="class__card">
-          <img src="images/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="images/class-2.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Flexibility & Mobility</h4>
-            <p>Yoga & Pilates</p>
-          </div>
-        </div>
-
-        <div class="class__card">
-          <img src="images/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="images/class-3.jpg" alt="class" />
-          <div class="class__content">
-            <h4>HIIT</h4>
-            <p>Circuit Training</p>
-          </div>
-        </div>
-
-        <div class="class__card">
-          <img src="images/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="images/class-4.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Group Fitness</h4>
-            <p>Zumba or Dance</p>
-          </div>
-        </div>
-
-        <div class="class__card">
-          <img src="images/dot-bg.png" alt="bg" class="class__bg" />
-          <img src="images/class-4.jpg" alt="class" />
-          <div class="class__content">
-            <h4>Group Fitness</h4>
-            <p>Zumba or Dance</p>
-          </div>
-        </div>
-
-
       </div>
+
     </section>
 
     <!-- Pie de Página -->
