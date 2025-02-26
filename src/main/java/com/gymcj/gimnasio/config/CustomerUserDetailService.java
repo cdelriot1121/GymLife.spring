@@ -38,7 +38,4 @@ public class CustomerUserDetailService implements UserDetailsService {
                 usuario.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet())
         );
     }
-
-
-
 }

@@ -1,0 +1,43 @@
+body {
+    background-color: #f4f0ff; /* Fondo lila suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(128, 0, 128, 0.3); /* Sombra moradita */
+    width: 50%; /* Ajustamos el tamaño del contenedor */
+    max-width: 500px; /* Para que no se expanda demasiado */
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+}
+
+th {
+    background-color: #800080; /* Morado */
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    border-bottom: 2px solid #800080; /* Solo el borde inferior */
+    color: #333;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
