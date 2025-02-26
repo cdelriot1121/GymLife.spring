@@ -3,23 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/styles/login.css">
+    <title>Login | GymLife</title>
+
+    <!-- Link LoginStyle.css -->
+    <link rel="stylesheet" href="/styles/loginStyle.css">
 </head>
 <body>
     <div class="login-container">
-        <div class="login-box">
-            <h2>Iniciar Sesión</h2>
-            <form action="/login" method="POST">
-                <div class="input-container">
-                    <input type="text" name="username" id="username" placeholder="Username" required>
-                </div>
-                <div class="input-container">
-                    <input type="password" name="password" id="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn-login">Iniciar</button>
-            </form>
-        </div>
+        <form action="/login" method="post">
+            <h2>Login</h2>
+            
+            <!-- Username -->
+            <div class="input-field">
+                <input type="text" name="username" id="username" required>
+                <label for="username">Ingresa tu username</label>
+            </div>
+            
+            <!-- Password -->
+            <div class="input-field">
+                <input type="password" name="password" id="password" required>
+                <label for="password">Ingresa tu contraseña</label>
+            </div>
+
+            <!-- Recordar Contraseña -->
+            <div class="password-opciones">
+                <label for="recordar">
+                    <input type="checkbox" id="recordar" name="remember-me">
+                    <p>Recordar</p>
+                </label>
+                <a href="#">Recuperar Contraseña</a>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+            <div class="account-opciones">
+                <p>¿Aún no tienes una cuenta? <a href="#">Registrarse</a></p>
+            </div>
+        </form>
     </div>
 </body>
 </html>

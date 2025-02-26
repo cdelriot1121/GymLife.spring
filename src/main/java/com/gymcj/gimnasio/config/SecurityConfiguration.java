@@ -26,7 +26,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/styles/**", "/scripts/**", "/images/**").permitAll()
-                        .requestMatchers("/home/**").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/usuario/**").hasRole("USUARIO")
                         .anyRequest().authenticated()
@@ -90,7 +90,7 @@ public class SecurityConfiguration {
             } else if (role.contains("USUARIO")) {
                 response.sendRedirect("/usuario/home");
             } else {
-                response.sendRedirect("/home");
+                response.sendRedirect("/");
             }
         };
     }
