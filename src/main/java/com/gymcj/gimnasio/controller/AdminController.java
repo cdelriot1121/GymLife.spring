@@ -11,6 +11,8 @@ import com.gymcj.gimnasio.entity.ClasesModel;
 import com.gymcj.gimnasio.service.ClasesService;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
@@ -25,6 +27,12 @@ public class AdminController {
         model.addAttribute("clases", clases);
 
         return "admin";
+    }
+
+    @PostMapping("/admin/home")
+    public String addClase(@RequestParam String imagen, @RequestParam String nombreClase, @RequestParam String subClases) {
+        clasesService.addClase(imagen, nombreClase, subClases);
+        return "redirect:/admin/home";
     }
 
 }

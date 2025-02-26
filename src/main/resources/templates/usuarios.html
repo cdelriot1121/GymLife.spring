@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -36,7 +36,7 @@
     </nav>
     <div class="section__container header__container" id="home">
       <div class="header__image">
-        <img src="images/header.png" alt="header" />
+        <img th:src="@{/images/header.png}" alt="header" />
       </div>
       <div class="header__content">
         <h4>Construye Tú Cuerpo &</h4>
@@ -55,15 +55,15 @@
   <!-- Historia -->
   <section class="section__container about__container" id="about">
     <div class="about__image">
-      <img class="about__bg" src="/images/dot-bg.png" alt="bg" />
-      <img src="images/about.png" alt="about" />
+      <img class="about__bg" th:src="@{/images/dot-bg.png}" alt="bg" />
+      <img th:src="@{/images/about.png}" alt="about" />
     </div>
     <div class="about__content">
       <h2 class="section__header">Conócenos</h2>
       <p class="section__description">
         Dirigida por nuestro equipo de instructores expertos y motivadores, "La clase que obtendrá aquí" es una sesión
         llena de energía y orientada a los resultados que combina una combinación perfecta de cardio, entrenamiento de
-        fuerza y ​​ejercicios funcionales.
+        fuerza y ejercicios funcionales.
       </p>
       <div class="about__grid">
         <div class="about__card">
@@ -112,13 +112,16 @@
     <div class="class__grid" th:each="ClaseModel : @{clases}">
 
       <div class="class__card" th:each="clase : ${clases}">
-        <img src="images/dot-bg.png" alt="bg" class="class__bg" />
+        <img th:src="@{/images/dot-bg.png}" alt="bg" class="class__bg" />
         <img th:src="@{'/images/' + ${clase.imagen}}" alt="class" />
         <div class="class__content">
           <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>
           <p th:text="${clase.subClases}">Sub Clases</p>
           <div class="botones">
-            <button type="submit" class="btn-register">Entrar</button>
+            <form th:action="@{/registro}" method="post">
+              <input type="hidden" name="claseId" th:value="${clase.id}" />
+              <button type="submit" class="btn-register">Entrar</button>
+            </form>
           </div>
         </div>
       </div>

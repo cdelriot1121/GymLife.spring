@@ -59,10 +59,4 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "clase_id", referencedColumnName = "id",
                     foreignKey = @ForeignKey(name = "FK_clase-usuario")))
     private Set<ClasesModel> clases = new HashSet<>();
-
-
-
-    
-
-
 }

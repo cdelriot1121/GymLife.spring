@@ -15,9 +15,15 @@ public class PrincipalController {
 
     @Autowired
     private ClasesService clasesService;
+
     @GetMapping("/login")
     public String Login(){
         return "login";
+    }
+
+    @GetMapping("/error/403")
+    public String Error() {
+        return "403";
     }
 
     @GetMapping("/")
@@ -27,6 +33,13 @@ public class PrincipalController {
         
         return "index";
     }
-    
+
+    //Metodo para ver la lista de las clases con sus usuarios
+    @GetMapping("/listar")
+    public String Listar(Model model){
+        List<ClasesModel> clases = clasesService.getClases();
+        model.addAttribute("clases", clases);
+        return "listar";
+    }
     
 }

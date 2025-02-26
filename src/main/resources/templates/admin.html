@@ -29,6 +29,7 @@
         <li class="link"><a href="#home">Home</a></li>
         <li class="link"><a href="#about">Conócenos</a></li>
         <li class="link"><a href="#crear">Crear</a></li>
+        <li class="link"><a href="/lista">Listar</a></li>
         <li class="link"><a href="#class">Clases</a></li>
 
 
@@ -37,7 +38,7 @@
     </nav>
     <div class="section__container header__container" id="home">
       <div class="header__image">
-        <img src="images/header.png" alt="header" />
+        <img th:src="@{/images/header.png}" alt="header" />
       </div>
       <div class="header__content">
         <h4>Construye Tú Cuerpo &</h4>
@@ -56,15 +57,15 @@
   <!-- Historia -->
   <section class="section__container about__container" id="about">
     <div class="about__image">
-      <img class="about__bg" src="/images/dot-bg.png" alt="bg" />
-      <img src="images/about.png" alt="about" />
+      <img class="about__bg" th:src="@{/images/dot-bg.png}" alt="bg" />
+      <img th:src="@{/images/about.png}" alt="about" />
     </div>
     <div class="about__content">
       <h2 class="section__header">Conócenos</h2>
       <p class="section__description">
         Dirigida por nuestro equipo de instructores expertos y motivadores, "La clase que obtendrá aquí" es una sesión
         llena de energía y orientada a los resultados que combina una combinación perfecta de cardio, entrenamiento de
-        fuerza y ​​ejercicios funcionales.
+        fuerza y ejercicios funcionales.
       </p>
       <div class="about__grid">
         <div class="about__card">
@@ -111,13 +112,15 @@
     </p>
 
     <div class="from-crear">
-      <form action="">
+      <form action="/admin/home" method="post">
         <span class="section__description">TODOS LOS CAMPOS SON OBLIGATORIOS*</span>
         <h2 class="section__description">Información de la Clase</h2>
-        <input type="text" placeholder="Imagen">
-        <input type="text" placeholder="Nombre">
-        <input type="text" placeholder="Descripción">
-        <button class="normal btn">Enviar</button>
+
+        <input type="text" name="imagen" placeholder="Imagen" required>
+        <input type="text" name="nombreClase" placeholder="Nombre General" required>
+        <input type="text" name="subClases" placeholder="Clases Especificas" required>
+
+        <button class="normal btn" type="submit">Enviar</button>
       </form>
     </div>
   </section>
@@ -133,7 +136,7 @@
     <div class="class__grid" th:each="ClaseModel : @{clases}">
 
       <div class="class__card" th:each="clase : ${clases}">
-        <img src="images/dot-bg.png" alt="bg" class="class__bg" />
+        <img th:src="@{/images/dot-bg.png}" alt="bg" class="class__bg" />
         <img th:src="@{'/images/' + ${clase.imagen}}" alt="class" />
         <div class="class__content">
           <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>

@@ -17,7 +17,7 @@ public class ClasesService {
 
     @Autowired
     private ClasesRepository clasesRepository;
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -25,24 +25,31 @@ public class ClasesService {
         return clasesRepository.findAll();
     }
 
-    public ClasesModel addClase(ClasesModel claseModel) {
-        return clasesRepository.save(claseModel);
+    public ClasesModel addClase(String imagen, String nombreClase, String subClases) {
+
+        ClasesModel nuevaClase = ClasesModel.builder()
+                .imagen(imagen)
+                .nombreClase(nombreClase)
+                .subClases(subClases)
+                .build();
+
+        return clasesRepository.save(nuevaClase);
     }
 
     public ClasesModel updateClase(Long id, ClasesModel claseActualizada) {
         ClasesModel clase = clasesRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("La clase con el id: " + id + " no existe o ha sido eliminada"));
+                .orElseThrow(() -> new EntityNotFoundException("La clase con el id: " + id + " no existe o ha sido eliminada"));
 
         clase.setImagen(claseActualizada.getImagen());
         clase.setNombreClase(claseActualizada.getNombreClase());
         clase.setSubClases(claseActualizada.getSubClases());
-        
+
         return clasesRepository.save(clase);
     }
 
     public void deleteClase(Long id) {
         ClasesModel clase = clasesRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("La clase con el id: " + id + " no existe o ha sido eliminada"));
+                .orElseThrow(() -> new EntityNotFoundException("La clase con el id: " + id + " no existe o ha sido eliminada"));
 
         for (Usuario usuario : clase.getUsuarios()) {
             usuario.getClases().remove(clase);
