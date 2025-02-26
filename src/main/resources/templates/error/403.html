@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
+    <link rel="stylesheet" th:href="@{/styles/error.css}">
 </head>
 <body>
-    <h1>Error 403</h1>
+    <div class="error-container">
+        <div class="error-box">
+            <h2>Acceso Denegado</h2>
+            <p>Lo lamentamos, no tienes permisos para acceder a estos recursos.</p>
+            <a href="/" class="back-btn">Regresar a la página de inicio</a>
+        </div>
+    </div>
 </body>
 </html>

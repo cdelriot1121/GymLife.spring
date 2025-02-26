@@ -2,210 +2,259 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="/styles/index.css" />
-  <link rel="icon" href="https://img.icons8.com/nolan/96/dumbbell.png" type="image/png">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/styles/index.css"/>
+    <link rel="icon" href="https://img.icons8.com/nolan/96/dumbbell.png" type="image/png">
 
-  <title>GymLife Gimnasio</title>
+    <title>GymLife Gimnasio</title>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header class="header">
+<!-- Header -->
+<header class="header">
     <nav>
-      <div class="nav__header">
-        <div class="nav__logo">
-          <a href="#"><img src="https://img.icons8.com/nolan/96/dumbbell.png" alt="" />GymLife: Admin</a>
+        <div class="nav__header">
+            <div class="nav__logo">
+                <a href="#"><img src="https://img.icons8.com/nolan/96/dumbbell.png" alt=""/>GymLife: Admin</a>
+            </div>
+            <div class="nav__menu__btn" id="menu-btn">
+                <span><i class="ri-menu-line"></i></span>
+            </div>
         </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li class="link"><a href="#home">Home</a></li>
-        <li class="link"><a href="#about">Conócenos</a></li>
-        <li class="link"><a href="#crear">Crear</a></li>
-        <li class="link"><a href="/lista">Listar</a></li>
-        <li class="link"><a href="#class">Clases</a></li>
+        <ul class="nav__links" id="nav-links">
+            <li class="link"><a href="#home">Home</a></li>
+            <li class="link"><a href="#about">Conócenos</a></li>
+            <li class="link"><a href="#crear">Crear</a></li>
+            <li class="link"><a href="/admin/listar">Listar</a></li>
+            <li class="link"><a href="#class">Clases</a></li>
 
 
-        <li class="link"><button class="btn" onclick="location.href='/logout'">Cerrar Sesion</button></li>
-      </ul>
+            <li class="link">
+                <button class="btn" onclick="location.href='/logout'">Cerrar Sesion</button>
+            </li>
+        </ul>
     </nav>
     <div class="section__container header__container" id="home">
-      <div class="header__image">
-        <img th:src="@{/images/header.png}" alt="header" />
-      </div>
-      <div class="header__content">
-        <h4>Construye Tú Cuerpo &</h4>
-        <h1 class="section__header">Se Tú Mejor Versión!</h1>
-        <p>
-          Libera tu potencial y emprende un viaje hacia una versión más fuerte, en forma y segura de ti misma.
-          ¡Inscríbete en 'GymLife' ahora y sé testigo de la increíble transformación de la que es capaz tu cuerpo!
-        </p>
-        <div class="header__btn">
-          <button class="btn" onclick="location.href='/login'">Join Today</button>
+        <div class="header__image">
+            <img th:src="@{/images/header.png}" alt="header"/>
         </div>
-      </div>
+        <div class="header__content">
+            <h4>Construye Tú Cuerpo &</h4>
+            <h1 class="section__header">Se Tú Mejor Versión!</h1>
+            <p>
+                Libera tu potencial y emprende un viaje hacia una versión más fuerte, en forma y segura de ti misma.
+                ¡Inscríbete en 'GymLife' ahora y sé testigo de la increíble transformación de la que es capaz tu cuerpo!
+            </p>
+            <div class="header__btn">
+                <button class="btn" onclick="location.href='/login'">Join Today</button>
+            </div>
+        </div>
     </div>
-  </header>
+</header>
 
-  <!-- Historia -->
-  <section class="section__container about__container" id="about">
+<!-- Historia -->
+<section class="section__container about__container" id="about">
     <div class="about__image">
-      <img class="about__bg" th:src="@{/images/dot-bg.png}" alt="bg" />
-      <img th:src="@{/images/about.png}" alt="about" />
+        <img class="about__bg" th:src="@{/images/dot-bg.png}" alt="bg"/>
+        <img th:src="@{/images/about.png}" alt="about"/>
     </div>
     <div class="about__content">
-      <h2 class="section__header">Conócenos</h2>
-      <p class="section__description">
-        Dirigida por nuestro equipo de instructores expertos y motivadores, "La clase que obtendrá aquí" es una sesión
-        llena de energía y orientada a los resultados que combina una combinación perfecta de cardio, entrenamiento de
-        fuerza y ejercicios funcionales.
-      </p>
-      <div class="about__grid">
-        <div class="about__card">
-          <span><i class="ri-open-arm-line"></i></span>
-          <div>
-            <h4>Política de puertas abiertas</h4>
-            <p>
-              Creemos en brindar acceso sin restricciones a todas las personas, independientemente de su nivel físico,
-              edad o antecedentes.
-            </p>
-          </div>
+        <h2 class="section__header">Conócenos</h2>
+        <p class="section__description">
+            Dirigida por nuestro equipo de instructores expertos y motivadores, "La clase que obtendrá aquí" es una
+            sesión
+            llena de energía y orientada a los resultados que combina una combinación perfecta de cardio, entrenamiento
+            de
+            fuerza y ejercicios funcionales.
+        </p>
+        <div class="about__grid">
+            <div class="about__card">
+                <span><i class="ri-open-arm-line"></i></span>
+                <div>
+                    <h4>Política de puertas abiertas</h4>
+                    <p>
+                        Creemos en brindar acceso sin restricciones a todas las personas, independientemente de su nivel
+                        físico,
+                        edad o antecedentes.
+                    </p>
+                </div>
+            </div>
+            <div class="about__card">
+                <span><i class="ri-shield-cross-line"></i></span>
+                <div>
+                    <h4>Totalmente asegurado</h4>
+                    <p>
+                        Su tranquilidad es nuestra principal prioridad y nuestro compromiso con su seguridad se extiende
+                        a cada
+                        aspecto de su recorrido de fitness.
+                    </p>
+                </div>
+            </div>
+            <div class="about__card">
+                <span><i class="ri-p2p-line"></i></span>
+                <div>
+                    <h4>Entrenador personal</h4>
+                    <p>
+                        Con planes de entrenamiento personalizados adaptados a tus necesidades, nos aseguraremos de que
+                        aproveches
+                        al máximo tu experiencia en el gimnasio.
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="about__card">
-          <span><i class="ri-shield-cross-line"></i></span>
-          <div>
-            <h4>Totalmente asegurado</h4>
-            <p>
-              Su tranquilidad es nuestra principal prioridad y nuestro compromiso con su seguridad se extiende a cada
-              aspecto de su recorrido de fitness.
-            </p>
-          </div>
-        </div>
-        <div class="about__card">
-          <span><i class="ri-p2p-line"></i></span>
-          <div>
-            <h4>Entrenador personal</h4>
-            <p>
-              Con planes de entrenamiento personalizados adaptados a tus necesidades, nos aseguraremos de que aproveches
-              al máximo tu experiencia en el gimnasio.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
-  <!-- Crear Clases -->
-  <section class="section__container class__container" id="crear">
+<!-- Crear Clases -->
+<section class="section__container class__container" id="crear">
     <h2 class="section__header">Crear Clase</h2>
     <p class="section__description">
-      Registre nuevas clases en el sistema del gimnasio proporcionando una imagen, nombre y descripción. Asegúrese de
-      completar todos los campos obligatorios para que la clase esté disponible en el catálogo y accesible para los
-      usuarios.
+        Registre nuevas clases en el sistema del gimnasio proporcionando una imagen, nombre y descripción. Asegúrese de
+        completar todos los campos obligatorios para que la clase esté disponible en el catálogo y accesible para los
+        usuarios.
     </p>
 
     <div class="from-crear">
-      <form action="/admin/home" method="post">
-        <span class="section__description">TODOS LOS CAMPOS SON OBLIGATORIOS*</span>
-        <h2 class="section__description">Información de la Clase</h2>
+        <!-- Formulario para la creacion de un producto -->
+        <form action="/admin/home" method="post" id="formNuevo">
+            <span class="section__description">TODOS LOS CAMPOS SON OBLIGATORIOS*</span>
+            <h2 class="section__description">Información de la Clase</h2>
 
-        <input type="text" name="imagen" placeholder="Imagen" required>
-        <input type="text" name="nombreClase" placeholder="Nombre General" required>
-        <input type="text" name="subClases" placeholder="Clases Especificas" required>
+            <input type="text" name="imagen" placeholder="Imagen" required>
+            <input type="text" name="nombreClase" placeholder="Nombre General" required>
+            <input type="text" name="subClases" placeholder="Clases Especificas" required>
 
-        <button class="normal btn" type="submit">Enviar</button>
-      </form>
+            <button class="normal btn" type="submit">Enviar</button>
+        </form>
+
+        <!-- Formulario para la actualizacion de un producto -->
+        <form action="/actualizar" method="post" id="formEditar" style="display: none;">
+            <span class="section__description">EDITAR CLASE*</span>
+            <h2 class="section__description">Editar Información de la Clase</h2>
+
+            <input type="hidden" name="id" id="editId">
+            <input type="text" name="imagen" id="editImagen" placeholder="Imagen" required>
+            <input type="text" name="nombreClase" id="editNombreClase" placeholder="Nombre General" required>
+            <input type="text" name="subClases" id="editSubClases" placeholder="Clases Especificas" required>
+
+            <div class="boton-new">
+                <button class="normal btn" type="button" onclick="cancelarEdicion()">Cancelar</button>
+                <button class="normal btn" type="submit">Actualizar</button>
+            </div>
+        </form>
     </div>
-  </section>
+</section>
 
-  <!-- Clases -->
-  <section class="section__container class__container" id="class">
+<!-- Clases -->
+<section class="section__container class__container" id="class">
     <h2 class="section__header">Nuestras Clases</h2>
     <p class="section__description">
-      Descubra una amplia gama de clases emocionantes en nuestro gimnasio, diseñadas para satisfacer todos los niveles
-      de condición física e intereses. Ya sea que sea un atleta experimentado o recién esté comenzando su camino hacia
-      el fitness, nuestras clases ofrecen algo para todos.
+        Descubra una amplia gama de clases emocionantes en nuestro gimnasio, diseñadas para satisfacer todos los niveles
+        de condición física e intereses. Ya sea que sea un atleta experimentado o recién esté comenzando su camino hacia
+        el fitness, nuestras clases ofrecen algo para todos.
     </p>
     <div class="class__grid" th:each="ClaseModel : @{clases}">
 
-      <div class="class__card" th:each="clase : ${clases}">
-        <img th:src="@{/images/dot-bg.png}" alt="bg" class="class__bg" />
-        <img th:src="@{'/images/' + ${clase.imagen}}" alt="class" />
-        <div class="class__content">
-          <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>
-          <p th:text="${clase.subClases}">Sub Clases</p>
-          <div class="boton">
-            <button type="submit" class="btn-register">Eliminar</button>
-            <button type="submit" class="btn-register">Actualizar</button>
-          </div>
+        <div class="class__card" th:each="clase : ${clases}">
+            <img th:src="@{/images/dot-bg.png}" alt="bg" class="class__bg"/>
+            <img th:src="@{'/images/' + ${clase.imagen}}" alt="class"/>
+            <div class="class__content">
+                <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>
+                <p th:text="${clase.subClases}">Sub Clases</p>
+                <div class="boton">
+                    <form action="/eliminar" method="post">
+                        <input type="hidden" name="claseId" th:value="${clase.id}">
+                        <button type="submit" class="btn-register">Eliminar</button>
+                    </form>
+                    <button type="button" class="btn-register"
+                            th:attr="onclick=|editarClase('${clase.id}', '${clase.imagen}', '${clase.nombreClase}', '${clase.subClases}')|">
+                        Actualizar
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+</section>
 
-    </div>
-  </section>
-
-  <!-- Pie de Página -->
-  <footer class="footer">
+<!-- Pie de Página -->
+<footer class="footer">
     <div class="section__container footer__container">
-      <div class="footer__col">
-        <div class="footer__logo">
-          <a href="#"><img src="https://img.icons8.com/nolan/96/dumbbell.png" alt="logo" />GymLife</a>
+        <div class="footer__col">
+            <div class="footer__logo">
+                <a href="#"><img src="https://img.icons8.com/nolan/96/dumbbell.png" alt="logo"/>GymLife</a>
+            </div>
+            <p>
+                Take the first step towards a healthier, stronger you with our
+                unbeatable pricing plans. Let's sweat, achieve, and conquer
+                together!
+            </p>
+            <div class="footer__socials">
+                <a href="#"><i class="ri-facebook-fill"></i></a>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+                <a href="#"><i class="ri-twitter-fill"></i></a>
+            </div>
         </div>
-        <p>
-          Take the first step towards a healthier, stronger you with our
-          unbeatable pricing plans. Let's sweat, achieve, and conquer
-          together!
-        </p>
-        <div class="footer__socials">
-          <a href="#"><i class="ri-facebook-fill"></i></a>
-          <a href="#"><i class="ri-instagram-line"></i></a>
-          <a href="#"><i class="ri-twitter-fill"></i></a>
+        <div class="footer__col">
+            <h4>Company</h4>
+            <div class="footer__links">
+                <a href="#">Business</a>
+                <a href="#">Franchise</a>
+                <a href="#">Partnership</a>
+                <a href="#">Network</a>
+            </div>
         </div>
-      </div>
-      <div class="footer__col">
-        <h4>Company</h4>
-        <div class="footer__links">
-          <a href="#">Business</a>
-          <a href="#">Franchise</a>
-          <a href="#">Partnership</a>
-          <a href="#">Network</a>
+        <div class="footer__col">
+            <h4>About Us</h4>
+            <div class="footer__links">
+                <a href="#">Blogs</a>
+                <a href="#">Security</a>
+                <a href="#">Careers</a>
+            </div>
         </div>
-      </div>
-      <div class="footer__col">
-        <h4>About Us</h4>
-        <div class="footer__links">
-          <a href="#">Blogs</a>
-          <a href="#">Security</a>
-          <a href="#">Careers</a>
+        <div class="footer__col">
+            <h4>Contact</h4>
+            <div class="footer__links">
+                <a href="#">Contact Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">BMI Calculator</a>
+            </div>
         </div>
-      </div>
-      <div class="footer__col">
-        <h4>Contact</h4>
-        <div class="footer__links">
-          <a href="#">Contact Us</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms & Conditions</a>
-          <a href="#">BMI Calculator</a>
-        </div>
-      </div>
     </div>
     <div class="footer__bar">
-      Copyright © 2025 GymLife. All rights reserved.
+        Copyright © 2025 GymLife. All rights reserved.
     </div>
-  </footer>
+</footer>
 
-  <!-- Links Scripts -->
-  <script src="https://unpkg.com/scrollreveal"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-  <script src="/scripts/main.js"></script>
+<!-- Links Scripts -->
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="/scripts/main.js"></script>
+
+<script>
+    // aqui mostramos el nuevo formulario y le cargamos los atributos
+    function editarClase(id, imagen, nombre, subClases) {
+        // Mostrar el formulario de edicion
+        document.getElementById("formNuevo").style.display = "none";
+        document.getElementById("formEditar").style.display = "block";
+
+        // rellenar campos
+        document.getElementById("editId").value = id;
+        document.getElementById("editImagen").value = imagen;
+        document.getElementById("editNombreClase").value = nombre;
+        document.getElementById("editSubClases").value = subClases;
+    }
+
+    // cancelamos la edicion y volvemos al formulario de crearClase
+    function cancelarEdicion() {
+        // Mostrar el formulario de creación
+        document.getElementById("formNuevo").style.display = "block";
+        document.getElementById("formEditar").style.display = "none";
+    }
+</script>
 </body>
-
 </html>

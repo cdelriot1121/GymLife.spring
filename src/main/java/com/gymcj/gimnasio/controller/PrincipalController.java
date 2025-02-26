@@ -23,7 +23,7 @@ public class PrincipalController {
 
     @GetMapping("/error/403")
     public String Error() {
-        return "403";
+        return "error/403";
     }
 
     @GetMapping("/")
@@ -32,14 +32,6 @@ public class PrincipalController {
         model.addAttribute("clases", clases);
         
         return "index";
-    }
-
-    //Metodo para ver la lista de las clases con sus usuarios
-    @GetMapping("/listar")
-    public String Listar(Model model){
-        List<ClasesModel> clases = clasesService.getClases();
-        model.addAttribute("clases", clases);
-        return "listar";
     }
     
 }

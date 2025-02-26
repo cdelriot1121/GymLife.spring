@@ -65,6 +65,7 @@
 
 .botones {
   display: flex;
+  margin-right: 10px;
   margin-top: 15px;
   justify-content: space-between;
 }
@@ -588,6 +589,10 @@ nav {
   color: #fff;
 }
 
+#creaar .from-crear #formEditar .boton-new {
+    display: flex;
+    justify-content: space-between;
+}
 
 @media (width > 480px) {
   .class__grid {

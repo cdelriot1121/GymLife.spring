@@ -35,4 +35,23 @@ public class AdminController {
         return "redirect:/admin/home";
     }
 
+    @PostMapping("/eliminar")
+    public String addClase(@RequestParam("claseId") Long claseId) {
+        clasesService.deleteClase(claseId);
+        return "redirect:/admin/home";
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizarClase(@RequestParam("id") Long id, ClasesModel clasesActualizada) {
+        clasesService.updateClase(id, clasesActualizada);
+        return "redirect:/admin/home";
+    }
+
+    //Metodo para ver la lista de las clases con sus usuarios
+    @GetMapping("admin/listar")
+    public String Listar(Model model){
+        List<ClasesModel> clases = clasesService.getClases();
+        model.addAttribute("clases", clases);
+        return "listar";
+    }
 }
