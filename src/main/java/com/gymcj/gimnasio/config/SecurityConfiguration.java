@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                 .formLogin(from -> from
                         .loginPage("/login")
                         .permitAll()
+                        .failureUrl("/login?error=true")
                         .successHandler(validacionExitosa())
                 )
                 .build();

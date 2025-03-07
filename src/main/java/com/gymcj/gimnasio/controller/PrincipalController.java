@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gymcj.gimnasio.entity.ClasesModel;
 import com.gymcj.gimnasio.service.ClasesService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PrincipalController {
@@ -17,9 +18,13 @@ public class PrincipalController {
     private ClasesService clasesService;
 
     @GetMapping("/login")
-    public String Login(){
+    public String login(@RequestParam(name = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "Credenciales incorrectas.");
+        }
         return "login";
     }
+
 
     @GetMapping("/error/403")
     public String Error() {
