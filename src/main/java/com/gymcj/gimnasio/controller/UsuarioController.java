@@ -33,7 +33,7 @@ public class UsuarioController {
         return "usuarios";
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/registroclases")
     public String RegistroClase(@RequestParam("claseId") Long claseId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

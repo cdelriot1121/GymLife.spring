@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro | GymLife</title>
+  <link rel="stylesheet" href="/styles/registerStyle.css">
+</head>
+<body>
+<div class="register-container">
+  <form action="/register" method="post">
+    <h2>Registro</h2>
+
+    <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+    <div class="input-field">
+      <input type="text" name="username" id="username" required>
+      <label for="username">Ingresa tu username</label>
+    </div>
+
+    <div class="input-field">
+      <input type="password" name="password" id="password" required>
+      <label for="password">Ingresa tu contraseña</label>
+    </div>
+
+    <div class="input-field">
+      <input type="password" name="confirmPassword" id="confirmPassword" required>
+      <label for="confirmPassword">Confirma tu contraseña</label>
+    </div>
+
+    <button type="submit">Registrarse</button>
+
+    <div class="account-opciones">
+      <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
+    </div>
+  </form>
+</div>
+</body>
+</html>
