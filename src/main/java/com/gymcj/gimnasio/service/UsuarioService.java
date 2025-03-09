@@ -30,4 +30,13 @@ public class UsuarioService {
 
         usuarioRepository.save(usuario);
     }
+
+    public boolean existsByUsername(String username) {
+        return usuarioRepository.findByUsername(username).isPresent();
+    }
+
+    public void saveUser(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
 }

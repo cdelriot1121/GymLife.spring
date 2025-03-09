@@ -118,7 +118,7 @@
           <h4 th:text="${clase.nombreClase}">Nombre de la Clase</h4>
           <p th:text="${clase.subClases}">Sub Clases</p>
           <div class="botones">
-            <form th:action="@{/registro}" method="post">
+            <form th:action="@{/registroclases}" method="post">
               <input type="hidden" name="claseId" th:value="${clase.id}" />
               <button type="submit" class="btn-register">Entrar</button>
             </form>
