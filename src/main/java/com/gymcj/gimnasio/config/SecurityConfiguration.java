@@ -42,8 +42,10 @@ public class SecurityConfiguration {
                                 .expiredUrl("/login")
                                 .sessionRegistry(datosSession())
                         )
-                )
-                .formLogin(from -> from
+                ).oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/usuario/home", true)
+                ).formLogin(from -> from
                         .loginPage("/login")
                         .permitAll()
                         .failureUrl("/login?error=true")
