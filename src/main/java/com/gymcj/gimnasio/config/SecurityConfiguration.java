@@ -12,6 +12,9 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -21,12 +24,12 @@ import com.gymcj.gimnasio.repository.UsuarioRepository;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomOAuth2UserService customOAuth2UserService) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/styles/**", "/scripts/**", "/images/**").permitAll()
-                        .requestMatchers("/","/register").permitAll()
+                        .requestMatchers("/", "/register").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/usuario/**").hasRole("USUARIO")
                         .anyRequest().authenticated()
@@ -43,19 +46,29 @@ public class SecurityConfiguration {
                                 .sessionRegistry(datosSession())
                         )
                 )
+                .oauth2Login(oauth -> oauth
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/usuario/home", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(validacionExitosa()) // Redirige según el rol después del login OAuth2
+                )
                 .formLogin(from -> from
                         .loginPage("/login")
                         .permitAll()
                         .failureUrl("/login?error=true")
-                        .successHandler(validacionExitosa())
+                        .successHandler(validacionExitosa()) // Redirige según el rol después del login normal
                 )
                 .build();
     }
+
 
     @Bean
     public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
         return new CustomerUserDetailService(usuarioRepository);
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -72,9 +85,8 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) throws Exception {
         return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(
-                        authenticationProvider(userDetailsService, passwordEncoder)
-                ).build();
+                .authenticationProvider(authenticationProvider(userDetailsService, passwordEncoder))
+                .build();
     }
 
     @Bean
@@ -95,7 +107,6 @@ public class SecurityConfiguration {
             }
         };
     }
-
 
 
 }
