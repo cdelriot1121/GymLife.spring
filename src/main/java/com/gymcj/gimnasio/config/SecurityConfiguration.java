@@ -1,5 +1,7 @@
 package com.gymcj.gimnasio.config;
 
+import com.gymcj.gimnasio.config.filter.JwtTokenValidator;
+import com.gymcj.gimnasio.util.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,9 +21,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.gymcj.gimnasio.repository.UsuarioRepository;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfiguration {
+
+
+    private final JwtUtils jwtUtils;
+    public SecurityConfiguration(JwtUtils jwtUtils) {
+        this.jwtUtils = jwtUtils;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CustomOAuth2UserService customOAuth2UserService) throws Exception {
@@ -60,8 +69,15 @@ public class SecurityConfiguration {
                         .failureUrl("/login?error=true")
                         .successHandler(validacionExitosa()) // Redirige según el rol después del login normal
                 )
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+    @Bean
+    public JwtTokenValidator jwtTokenValidator(JwtUtils jwtUtils) {
+        return new JwtTokenValidator(jwtUtils);
+    }
+
 
 
     @Bean
