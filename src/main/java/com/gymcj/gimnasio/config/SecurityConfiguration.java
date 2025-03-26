@@ -1,7 +1,5 @@
 package com.gymcj.gimnasio.config;
 
-import com.gymcj.gimnasio.config.filter.JwtTokenValidator;
-import com.gymcj.gimnasio.util.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,20 +12,19 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import com.gymcj.gimnasio.repository.UsuarioRepository;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.gymcj.gimnasio.config.filter.JwtTokenValidator;
+import com.gymcj.gimnasio.repository.UsuarioRepository;
+import com.gymcj.gimnasio.util.JwtUtils;
 
 @Configuration
 public class SecurityConfiguration {
 
-
     private final JwtUtils jwtUtils;
+
     public SecurityConfiguration(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
@@ -38,7 +35,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/styles/**", "/scripts/**", "/images/**").permitAll()
-                        .requestMatchers("/", "/register").permitAll()
+                        .requestMatchers("/", "/register", "/api/auth/**").permitAll() // Permitir acceso al endpoint de autenticación JWT
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/usuario/**").hasRole("USUARIO")
                         .anyRequest().authenticated()
@@ -46,15 +43,7 @@ public class SecurityConfiguration {
                 .exceptionHandling(handling -> handling
                         .accessDeniedPage("/error/403"))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        .invalidSessionUrl("/login")
-                        .sessionFixation(fixation -> fixation.migrateSession())
-                        .sessionConcurrency(concurrency -> concurrency
-                                .maximumSessions(1)
-                                .expiredUrl("/login")
-                                .sessionRegistry(datosSession())
-                        )
-                )
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT no usa sesiones
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
                         .defaultSuccessUrl("/usuario/home", true)
@@ -69,7 +58,7 @@ public class SecurityConfiguration {
                         .failureUrl("/login?error=true")
                         .successHandler(validacionExitosa()) // Redirige según el rol después del login normal
                 )
-                .addFilterBefore(new JwtTokenValidator(jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), UsernamePasswordAuthenticationFilter.class) // Agregar el filtro de validación JWT
                 .build();
     }
 
@@ -77,8 +66,6 @@ public class SecurityConfiguration {
     public JwtTokenValidator jwtTokenValidator(JwtUtils jwtUtils) {
         return new JwtTokenValidator(jwtUtils);
     }
-
-
 
     @Bean
     public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
@@ -123,6 +110,4 @@ public class SecurityConfiguration {
             }
         };
     }
-
-
 }
