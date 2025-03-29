@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,8 +41,8 @@ public class SecurityConfiguration {
                 )
                 .exceptionHandling(handling -> handling
                         .accessDeniedPage("/error/403"))
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT no usa sesiones
+                //.sessionManagement(session -> session
+                        //.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT no usa sesiones
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
                         .defaultSuccessUrl("/usuario/home", true)
@@ -58,7 +57,7 @@ public class SecurityConfiguration {
                         .failureUrl("/login?error=true")
                         .successHandler(validacionExitosa()) // Redirige según el rol después del login normal
                 )
-                .addFilterBefore(new JwtTokenValidator(jwtUtils), UsernamePasswordAuthenticationFilter.class) // Agregar el filtro de validación JWT
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -99,11 +98,20 @@ public class SecurityConfiguration {
 
     public AuthenticationSuccessHandler validacionExitosa() {
         return (request, response, authentication) -> {
-            String role = authentication.getAuthorities().toString();
-
-            if (role.contains("ADMIN")) {
+            
+            String token = jwtUtils.crearToken(authentication);
+    
+            response.setHeader("Authorization", "Bearer " + token);
+    
+            // Redirigir según el rol
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+            boolean isUsuario = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_USUARIO"));
+    
+            if (isAdmin) {
                 response.sendRedirect("/admin/home");
-            } else if (role.contains("USUARIO")) {
+            } else if (isUsuario) {
                 response.sendRedirect("/usuario/home");
             } else {
                 response.sendRedirect("/");

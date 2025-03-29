@@ -12,22 +12,22 @@
 <div class="login-container">
     <form action="/login" method="post">
         <h2>Login</h2>
-
+    
         <!-- Mostrar mensaje de error -->
         <div class="error-message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-
+    
         <!-- Username -->
         <div class="input-field">
             <input type="text" name="username" id="username" required>
             <label for="username">Ingresa tu username</label>
         </div>
-
+    
         <!-- Password -->
         <div class="input-field">
             <input type="password" name="password" id="password" required>
             <label for="password">Ingresa tu contraseña</label>
         </div>
-
+    
         <!-- Recordar Contraseña -->
         <div class="password-opciones">
             <label for="recordar">
