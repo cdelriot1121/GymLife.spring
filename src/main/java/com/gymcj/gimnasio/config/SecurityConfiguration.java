@@ -98,11 +98,20 @@ public class SecurityConfiguration {
 
     public AuthenticationSuccessHandler validacionExitosa() {
         return (request, response, authentication) -> {
-            String role = authentication.getAuthorities().toString();
+            
+            String token = jwtUtils.crearToken(authentication);
     
-            if (role.contains("ADMIN")) {
+            response.setHeader("Authorization", "Bearer " + token);
+    
+            // Redirigir según el rol
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+            boolean isUsuario = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_USUARIO"));
+    
+            if (isAdmin) {
                 response.sendRedirect("/admin/home");
-            } else if (role.contains("USUARIO")) {
+            } else if (isUsuario) {
                 response.sendRedirect("/usuario/home");
             } else {
                 response.sendRedirect("/");
