@@ -1,0 +1,36 @@
+services:
+  gymlifespring-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gymlifespring-db:3306/prueba_gymlifedb?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-ID=${GOOGLE_CLIENT_ID}
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT-SECRET=${GOOGLE_CLIENT_SECRET}
+      - SECURITY_JWT_LLAVE_PRIVATE=${JWT_SECRET_KEY}
+    depends_on:
+      - gymlifespring-db
+    restart: unless-stopped
+
+  gymlifespring-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=prueba_gymlifedb
+      - MYSQL_ROOT_HOST=% # Esto permite conexiones desde cualquier host
+    command: --default-authentication-plugin=mysql_native_password # Importante para compatibilidad
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  mysql_data:
