@@ -1,4 +1,4 @@
-# GymLife - Spring Security Activity (By Jose Torres & Carlos Del rio) 
+# GymLife - Spring Security Activity (Primer caso) 
 
 
 ### Caso
