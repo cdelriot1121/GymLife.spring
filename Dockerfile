@@ -1,25 +1,27 @@
-# IMAGEN MODELO
-FROM eclipse-temurin:21.0.3_9-jdk
+# Etapa 1: Compilar la app con Maven
+FROM eclipse-temurin:21.0.3_9-jdk AS builder
 
-# INFORMAR EL PUERTO DONDE SE EJECUTA EL CONTENEDOR (INFORMATIVO)
-EXPOSE 8080
+WORKDIR /app
 
-# DEFINIR DIRECTORIO RAIZ DE NUESTRO CONTENEDOR
-WORKDIR /root
+# Copiamos los archivos necesarios para descargar dependencias
+COPY ./pom.xml .
+COPY ./.mvn .mvn
+COPY ./mvnw .
 
-# COPIAR Y PEGAR ARCHIVOS DENTRO DEL CONTENEDOR
-COPY ./pom.xml /root
-COPY ./.mvn /root/.mvn
-COPY ./mvnw /root
-
-# DESCARGAR LAS DEPENDENCIAS
+# Descargar dependencias sin compilar
 RUN ./mvnw dependency:go-offline
 
-# COPIAR EL CODIGO FUENTE DENTRO DEL CONTENEDOR
-COPY ./src /root/src
-
-# CONSTRUIR NUESTRA APLICACION
+# Copiar código fuente y compilar
+COPY ./src ./src
 RUN ./mvnw clean install -DskipTests
 
-# LEVANTAR NUESTRA APLICACION CUANDO EL CONTENEDOR INICIE
-ENTRYPOINT ["java","-jar","/root/target/gimnasio-0.0.1-SNAPSHOT.jar"]
+# Etapa 2: Imagen final con solo el .jar
+FROM eclipse-temurin:21.0.3_9-jre
+
+WORKDIR /app
+
+COPY --from=builder /app/target/gimnasio-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
