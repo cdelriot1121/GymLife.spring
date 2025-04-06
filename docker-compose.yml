@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   spring-api-image:
-    image: spring-api-image
+    image: gym-app-springboot-opt
     container_name: gymlife-spring-container
     build:
       context: .
